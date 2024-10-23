@@ -1,82 +1,119 @@
-body {
-  font-family: 'Roboto', sans-serif;
+/* src/App.css */
+html, body, #root {
+  height: 100%;
   margin: 0;
   padding: 0;
-}
-
-.App {
-  text-align: center;
-  background-color: white;
-  color: black;
+  font-family: 'Roboto', sans-serif;
+  background-color: #333;
+  color: white;
   transition: background-color 0.3s, color 0.3s;
 }
-
-.App.dark-mode {
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+.MuiContainer-root,
+.MuiTypography-root,
+.MuiFormControlLabel-root,
+.MuiButton-root,
+.MuiTextField-root,
+.MuiList-root,
+.MuiListItem-root,
+.MuiCheckbox-root,
+.MuiIconButton-root {
   background-color: #333;
   color: white;
 }
-
+.MuiButton-root {
+  background-color: #1976d2;
+  color: white;
+}
+.MuiButton-root.MuiButton-containedSecondary {
+  background-color: #dc004e;
+  color: white;
+}
 .task-input {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ffffff;
   border-radius: 4px;
   margin: 10px;
 }
-
 .task-input:focus {
   outline: none;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 1);
 }
-
 .typing {
-  border-right: 2px solid rgba(255, 255, 255, 0.75);
+  border-right: 2px solid rgba(255, 255, 255, 1);
   animation: blink 0.7s step-end infinite;
 }
-
 @keyframes blink {
   0% {
-      border-color: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.75);
   }
   50% {
-      border-color: transparent;
+    border-color: transparent;
   }
   100% {
-      border-color: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.75);
   }
 }
-
 .task-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-
 .task-list li {
   padding: 10px;
   border-bottom: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
 }
-
 .task-list li:last-child {
   border-bottom: none;
 }
-
 .task-list li .task {
   flex-grow: 1;
 }
-
 .task-list li .task.completed {
   text-decoration: line-through;
 }
-
 .task-list li .task.completed:hover {
   text-decoration: none;
 }
-
 .task-list li .task.completed + .actions {
   display: none;
 }
 
+/* Add these styles to make the text and input boxes white */
+.MuiInputBase-root {
+  color: white;
+}
 
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: white;
+}
 
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white;
+}
+
+.MuiInputLabel-root {
+  color: white;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: white;
+}
+
+/* Add these styles to make the placeholder text white */
+.MuiInputBase-input::placeholder {
+  color: white;
+  opacity: 1; /* Override opacity to ensure the color is visible */
+}

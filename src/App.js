@@ -1,45 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, CssBaseline, Button, Switch, FormControlLabel } from '@mui/material';
+import { Container, Typography, CssBaseline } from '@mui/material';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
-import Timer from './components/Timer';
 import { saveTasksToLocalStorage, loadTasksFromLocalStorage } from './utils/storage';
+import './App.css';
 
 function App() {
   const [tasks, setTasks] = useState(loadTasksFromLocalStorage());
-  const [timeLeft, setTimeLeft] = useState(1500);
-  const [isActive, setIsActive] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [categories] = useState(['Housework', 'Schoolwork', 'Work', 'Personal']);
 
   useEffect(() => {
     saveTasksToLocalStorage(tasks);
   }, [tasks]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
-    <Container component="main" maxWidth="sm">
+    <div className="App dark-mode">
       <CssBaseline />
-      <Typography variant="h4" align="center" gutterBottom>
-        Task Tracker with Pomodoro Timer
-      </Typography>
-      <FormControlLabel
-        control={<Switch checked={darkMode} onChange={toggleDarkMode} />}
-        label="Dark Mode"
-      />
-      <TaskForm addTask={(title, category, priority) => {
-        const newTask = { id: Date.now(), title, completed: false, category, priority };
-        setTasks((prevTasks) => [...prevTasks, newTask]);
-      }} />
-      <TaskList tasks={tasks} toggleTaskCompletion={(id) => {
-        setTasks((prevTasks) => prevTasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task));
-      }} deleteTask={(id) => {
-        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-      }} />
-      <Timer isActive={isActive} setIsActive={setIsActive} timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
-    </Container>
+      <Container component="main">
+        <Typography variant="h4" align="center" gutterBottom>
+          <u><b>Trackr</b></u>
+        </Typography>
+        <TaskForm addTask={(title, category, priority) => {
+          const newTask = { id: Date.now(), title, completed: false, category, priority, timeLeft: 1500, isActive: false };
+          setTasks((prevTasks) => [...prevTasks, newTask]);
+        }} categories={categories} />
+        <TaskList tasks={tasks} setTasks={setTasks} />
+      </Container>
+    </div>
   );
 }
 

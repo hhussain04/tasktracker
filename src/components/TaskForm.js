@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { TextField, Button, Grid } from '@mui/material';
+// src/components/TaskForm.js
 
-const TaskForm = ({ addTask }) => {
+import React, { useState } from 'react';
+import { TextField, Button, Grid, MenuItem } from '@mui/material';
+
+const TaskForm = ({ addTask, categories }) => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
-  const [priority, setPriority] = useState('');
+  const [priority, setPriority] = useState('low'); // Default to 'low'
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,7 +14,7 @@ const TaskForm = ({ addTask }) => {
     addTask(title, category, priority);
     setTitle('');
     setCategory('');
-    setPriority('');
+    setPriority('low'); // Reset to 'low'
   };
 
   return (
@@ -35,20 +37,32 @@ const TaskForm = ({ addTask }) => {
       </Grid>
       <TextField
         fullWidth
+        select
         label="Category"
         variant="outlined"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
         margin="normal"
-      />
+      >
+        {categories.map((category) => (
+          <MenuItem key={category} value={category}>
+            {category}
+          </MenuItem>
+        ))}
+      </TextField>
       <TextField
         fullWidth
+        select
         label="Priority"
         variant="outlined"
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
         margin="normal"
-      />
+      >
+        <MenuItem value="low">Low</MenuItem>
+        <MenuItem value="medium">Medium</MenuItem>
+        <MenuItem value="high">High</MenuItem>
+      </TextField>
     </form>
   );
 };
